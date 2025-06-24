@@ -8,6 +8,7 @@ from machine import unique_id
 from adc import get_address
 from gpio import execute
 from gpio import rgb
+from random import randint
 
 # General
 MAC = hexlify(unique_id(), ":").decode("utf-8")
@@ -22,9 +23,11 @@ MQTT_BROKER = "192.168.0.132"  # IP-Adresse oder Domain des MQTT-Brokers
 MQTT_PORT = 8883
 MQTT_TOPIC_ROOT_IN = "to-client"
 MQTT_TOPIC_ROOT_OUT = "from-client"
-MQTT_CLIENT_ID = f"ESP32-C6-Client_{UID}"
+MQTT_CLIENT_ID = f"ESP32-C6-Client_{randint(1, 1000000)}"
 MQTT_USER = "admin"  # Benutzername für MQTT-Auth
 MQTT_PASSWORD = "admin"  # Passwort für MQTT-Auth
+
+print(f'Client-ID: {MQTT_CLIENT_ID}')
 
 
 def connect_mqtt():

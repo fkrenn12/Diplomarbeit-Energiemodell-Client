@@ -28,9 +28,6 @@ def read_adc(pin):
 
 def set_pwm(pin, freq=500, duty_percent=0):
     duty = duty_percent * 65535 // 100
-    #pwm = PWM(Pin(pin))
-    #pwm.freq(freq)
-    #pwm.duty_u16(duty)
     PWM(Pin(pin), freq=freq, duty_u16=duty)
 
 
