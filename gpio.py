@@ -2,12 +2,12 @@ from machine import Pin, PWM
 from adc import get_voltage
 import neopixel
 
-NEO_PIXEL_PIN = 8
+NEO_PIXEL_PIN_BUILTIN = 8
 ADC_PINS = [2, 3, 4, 5]
 PWM_PINS = [14, 15, 18, 19, 20, 21, 22]
 DIGITAL_PINS = [14, 15, 18, 19, 20, 21, 22]
 
-rgb = neopixel.NeoPixel(Pin(NEO_PIXEL_PIN), 1)
+rgb = neopixel.NeoPixel(Pin(NEO_PIXEL_PIN_BUILTIN), 1)
 rgb[0] = (0, 0, 0)
 rgb.write()
 

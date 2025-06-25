@@ -73,7 +73,6 @@ def handle_mqtt(topic, msg) -> str | None:
     try:
         topic = topic.replace(f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/", "")
         topic_count = len(topic.split("/"))
-        duty_percent = None
         freq = None
         direction = None
         if topic_count == 3 and "pwm" in topic:
@@ -82,9 +81,11 @@ def handle_mqtt(topic, msg) -> str | None:
             pin, typ, direction = topic.split("/")[-3:]
         elif topic_count == 2 and ("adc" in topic or "digital" in topic):
             pin, typ = topic.split("/")[-2:]
+        elif topic_count == 2 and "neo" in topic:
+            pin, typ = topic.split("/")[-2:]
         else:
             raise Exception('Invalid Topic')
-        print(f"Pin: {pin}, Typ: {typ}, Direction: {direction}, Freq: {freq}, Duty: {duty_percent}")
+        print(f"Pin: {pin}, Typ: {typ}, Direction: {direction}, Freq: {freq}, Value: {msg}")
         return execute(pin=pin, typ=typ, value=msg, direction=direction, freq=freq)
 
     except Exception as e:
@@ -130,6 +131,9 @@ def main():
     print(f"Abonniere auf Topic: {subscribe_topic}")
     mqtt_client.subscribe(subscribe_topic.encode())
     subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/+/pwm/#"
+    print(f"Abonniere auf Topic: {subscribe_topic}")
+    mqtt_client.subscribe(subscribe_topic.encode())
+    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/+/neo/#"
     print(f"Abonniere auf Topic: {subscribe_topic}")
     mqtt_client.subscribe(subscribe_topic.encode())
     rgb[0] = (0, 0, 0)
