@@ -76,8 +76,8 @@ def handle_mqtt(topic, msg) -> str | None:
         duty_percent = None
         freq = None
         direction = None
-        if topic_count == 4 and "pwm" in topic:
-            pin, typ, freq, duty_percent = topic.split("/")[-4:]
+        if topic_count == 3 and "pwm" in topic:
+            pin, typ, freq = topic.split("/")[-3:]
         elif topic_count == 3 and "digital" in topic:
             pin, typ, direction = topic.split("/")[-3:]
         elif topic_count == 2 and ("adc" in topic or "digital" in topic):
@@ -85,7 +85,7 @@ def handle_mqtt(topic, msg) -> str | None:
         else:
             raise Exception('Invalid Topic')
         print(f"Pin: {pin}, Typ: {typ}, Direction: {direction}, Freq: {freq}, Duty: {duty_percent}")
-        return execute(pin=pin, typ=typ, value=msg, direction=direction, freq=freq, duty_percent=duty_percent)
+        return execute(pin=pin, typ=typ, value=msg, direction=direction, freq=freq)
 
     except Exception as e:
         # return None

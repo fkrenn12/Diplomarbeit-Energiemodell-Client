@@ -31,15 +31,14 @@ def set_pwm(pin, freq=500, duty_percent=0):
     PWM(Pin(pin), freq=freq, duty_u16=duty)
 
 
-def execute(pin=None, typ=None, direction=None, value=None, freq=None, duty_percent=None):
+def execute(pin=None, typ=None, direction=None, value=None, freq=None):
     try:
         pin = int(pin) if pin else None
         value = int(value) if value else None
         freq = int(freq) if freq else None
-        duty_percent = int(duty_percent) if duty_percent else None
 
         if typ == "pwm" and pin in PWM_PINS:
-            set_pwm(pin, freq, duty_percent)
+            set_pwm(pin, freq, value)
         elif typ == "adc" and pin in ADC_PINS:
             return read_adc(pin)
         elif typ == "digital" and pin in DIGITAL_PINS:

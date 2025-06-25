@@ -1,5 +1,6 @@
 from machine import Pin, ADC
 import time
+
 # ADC Setup
 adc_pin_1 = 0  # ADC an GPIO0
 adc_pin_2 = 1  # ADC an GPIO1
@@ -11,7 +12,6 @@ adc_2 = ADC(Pin(adc_pin_2))
 adc_2.width(ADC.WIDTH_12BIT)  # 12-Bit-Auflösung (0–4095)
 adc_2.atten(ADC.ATTN_11DB)
 
-
 # Spannungsbereiche für Adressen (berechnet aus den Widerstandswerten)
 ADDRESS_RANGES = [
     (3.2, 3.4),  # Spannung für Adresse 1 (ca. 3.30 V ± Toleranz)
@@ -22,7 +22,6 @@ ADDRESS_RANGES = [
 ]
 
 
-
 def address_from_table(voltage):
     for i, (low, high) in enumerate(ADDRESS_RANGES):
         if low <= voltage <= high:
@@ -30,8 +29,8 @@ def address_from_table(voltage):
 
 
 def get_address():
-    voltage_1 = (adc_1.read() / 4095) * 4.1  # Spannung berechnen (0–3.3 V Bereich)
-    voltage_2 = (adc_2.read() / 4095) * 4.1  # Spannung berechnen (0–3.3 V Bereich)
+    voltage_1 = (adc_1.read() / 1000)  # Spannung berechnen
+    voltage_2 = (adc_2.read() / 1000)  # Spannung berechnen
     print(f"Gemessene Spannungen: 1: {voltage_1:.2f} V 2: {voltage_2:.2f} V")
     address_ones = address_from_table(voltage_1)
     address_tens = address_from_table(voltage_2)
@@ -61,4 +60,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
