@@ -43,7 +43,7 @@ def get_voltage(adc_pin=3):
     adc = ADC(adc_pin)
     adc.width(ADC.WIDTH_12BIT)  # 12-Bit-Auflösung (0–4095)
     adc.atten(ADC.ATTN_11DB)  # Spannung bis 3,3 V
-    voltage = (adc.read() / 4095) * 4.1  # Spannung berechnen (0–3,3 V Bereich)
+    voltage = (adc.read() / 1000) # Spannung berechnen (0–3,3 V Bereich)
     print(f"Gemessene Spannung at GPIO{adc_pin}: {voltage:.2f} V")
     return voltage
 
