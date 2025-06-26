@@ -1,6 +1,7 @@
 from machine import Pin, PWM, Timer
 from adc import get_voltage
 import neopixel
+import neostrip
 
 NEO_PIXEL_PIN_BUILTIN = 8
 ADC_PINS = [2, 3, 4, 5]

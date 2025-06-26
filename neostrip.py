@@ -1,9 +1,10 @@
 import neopixel
 from machine import Pin, PWM, Timer
 
+NUMBER_OF_PIXELS = 144
+# https://roger-random.github.io/RGB332_color_wheel_three.js/
+
 NEO_PIXEL_PINS = [14, 15]
-neo14 = neopixel.NeoPixel(Pin(14), 144)
-neo15 = neopixel.NeoPixel(Pin(15), 144)
 
 
 def byte_to_rgb(rgb332):
@@ -44,16 +45,21 @@ def rgb_to_byte(rgb):
 # color_byte = rgb_to_byte(rgb_value)
 # print(f"RGB {rgb_value} → Byte: {color_byte} (0x{color_byte:02X})")
 
+class Neostrip:
+    def __init__(self, neo_pin, timer_id, period=100):
+        self.neo_pin = neo_pin
+        self.pixels = neopixel.NeoPixel(Pin(neo_pin), NUMBER_OF_PIXELS)
+        self.timer = Timer(timer_id)
+        self.timer.init(period=period, mode=Timer.PERIODIC, callback=self.timer_callback)
 
-# Callback-Funktion, die beim Timer-Interrupt ausgeführt wird
-def callback(timer):
-    # print("Timer ausgelöst")
-    # neo14.fill((0, 0, 0))
-    neo14.write()
+    def timer_callback(self, timer):
+        # self.pixels.fill((0, 0, 0))
+        self.pixels.write()
+
+    def __del__(self):
+        self.timer.deinit()
 
 
-# Timer erstellen (Software- oder Hardware-Timer je nach Board)
-timer = Timer(0)  # Timer 0 auswählen
+strip14 = Neostrip(14, 0, period=50)
+strip15 = Neostrip(15, 1, period=100)
 
-# Timer konfigurieren 100 -> 50ms ???!!!!
-timer.init(period=100, mode=Timer.PERIODIC, callback=callback)
