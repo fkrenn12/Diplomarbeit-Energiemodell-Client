@@ -81,7 +81,8 @@ class Neostrip:
         if self.mode == self.MODES[0]:
             self.pixels.fill((0, 0, 0))
         elif self.mode == self.MODES[1]:
-            self.pixels.fill((255, 255, 255))
+            pass
+            # self.pixels.fill((255, 255, 255))
         elif self.mode == self.MODES[2]:
             self.rotate_left()
         elif self.mode == self.MODES[3]:
