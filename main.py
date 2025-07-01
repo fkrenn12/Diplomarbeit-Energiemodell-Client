@@ -76,13 +76,16 @@ def handle_mqtt(topic, msg) -> str | None:
         freq = None
         direction = None
         if topic_count == 3 and "pwm" in topic:
-            pin, typ, freq = topic.split("/")[-3:]
+            typ, pin, freq = topic.split("/")[-3:]
         elif topic_count == 3 and "digital" in topic:
-            pin, typ, direction = topic.split("/")[-3:]
+            typ, pin, pin,  direction = topic.split("/")[-3:]
         elif topic_count == 2 and ("adc" in topic or "digital" in topic):
-            pin, typ = topic.split("/")[-2:]
+            typ, pin = topic.split("/")[-2:]
         elif topic_count == 2 and "neo" in topic:
-            pin, typ = topic.split("/")[-2:]
+            typ, pin = topic.split("/")[-2:]
+        elif "uart" in topic:
+            typ = topic.split("/")[-1]
+            pin = None
         else:
             raise Exception('Invalid Topic')
         print(f"Pin: {pin}, Typ: {typ}, Direction: {direction}, Freq: {freq}, Value: {msg}")
@@ -90,7 +93,7 @@ def handle_mqtt(topic, msg) -> str | None:
 
     except Exception as e:
         # return None
-        return str(e)
+        return f"Handle MQTT{e}"
 
 
 def main():
@@ -124,16 +127,19 @@ def main():
     rgb[0] = (20, 0, 0)
     rgb.write()
     mqtt_client.set_callback(mqtt_callback)
-    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/+/digital/#"
+    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/digital/#"
     print(f"Abonniere auf Topic: {subscribe_topic}")
     mqtt_client.subscribe(subscribe_topic.encode())
-    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/+/adc/#"
+    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/adc/#"
     print(f"Abonniere auf Topic: {subscribe_topic}")
     mqtt_client.subscribe(subscribe_topic.encode())
-    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/+/pwm/#"
+    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/pwm/#"
     print(f"Abonniere auf Topic: {subscribe_topic}")
     mqtt_client.subscribe(subscribe_topic.encode())
-    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/+/neo/#"
+    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/neo/#"
+    print(f"Abonniere auf Topic: {subscribe_topic}")
+    mqtt_client.subscribe(subscribe_topic.encode())
+    subscribe_topic = f"{MQTT_TOPIC_ROOT_IN}/{CLIENT_ADDRESS}/uart/#"
     print(f"Abonniere auf Topic: {subscribe_topic}")
     mqtt_client.subscribe(subscribe_topic.encode())
     rgb[0] = (0, 0, 0)
