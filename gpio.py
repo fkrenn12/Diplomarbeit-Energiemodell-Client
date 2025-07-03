@@ -14,7 +14,7 @@ rgb = neopixel.NeoPixel(Pin(NEO_PIXEL_PIN_BUILTIN), 1)
 rgb[0] = (0, 0, 0)
 rgb.write()
 
-uart1 = UART(1, 115200, tx=14)
+uart1 = UART(1, 921600, tx=14)
 
 
 def set_pin(pin, value):

@@ -19,7 +19,7 @@ SSID = "LAWIG14-FlexBox"
 PASSWORD = "wiesengrund14"
 
 # MQTT-Konfiguration
-MQTT_BROKER = "192.168.0.132"  # IP-Adresse oder Domain des MQTT-Brokers
+MQTT_BROKER = "192.168.0.93"  # IP-Adresse oder Domain des MQTT-Brokers
 MQTT_PORT = 8883
 MQTT_TOPIC_ROOT_IN = "to-client"
 MQTT_TOPIC_ROOT_OUT = "from-client"
