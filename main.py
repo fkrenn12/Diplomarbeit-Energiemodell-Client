@@ -19,6 +19,7 @@ PASSWORD = "wiesengrund14"
 # MQTT-Konfiguration
 MQTT_BROKER = "192.168.0.93"  # IP-Adresse oder Domain des MQTT-Brokers
 MQTT_PORT = 8883
+MQTT_SSL = True
 MQTT_CLIENT_ID = f"ESP32-C6-Client_{randint(1, 1000000)}"
 MQTT_USER = "admin"  # Benutzername für MQTT-Auth
 MQTT_PASSWORD = "admin"  # Passwort für MQTT-Auth
@@ -32,7 +33,7 @@ print(f'MQTT Client-ID: {MQTT_CLIENT_ID}')
 def connect_mqtt():
     try:
         print(f"Connect to MQTT-Broker {MQTT_BROKER}:{MQTT_PORT}...")
-        client = MQTTClient(MQTT_CLIENT_ID, MQTT_BROKER, ssl=True, port=MQTT_PORT, user=MQTT_USER,
+        client = MQTTClient(MQTT_CLIENT_ID, MQTT_BROKER, ssl=MQTT_SSL, port=MQTT_PORT, user=MQTT_USER,
                             password=MQTT_PASSWORD)
         client.connect()
         print(f"Connected to {MQTT_BROKER}:{MQTT_PORT}")
