@@ -96,9 +96,9 @@ def handle_mqtt(topic, msg) -> str | None:
 
 def main():
     def mqtt_callback(topic, msg):
-        # machine.Pin(20, machine.Pin.OUT).value(1)
         gc.collect()
-        # machine.Pin(20, machine.Pin.OUT).value(0)
+        rgb[0] = (0, 0, 20)
+        rgb.write()
         try:
             topic = topic.decode()
             print(f"Received: {topic} -> {msg.decode()}")

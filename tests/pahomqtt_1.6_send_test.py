@@ -5,7 +5,7 @@ import json
 
 broker = '192.168.0.93'
 port = 8883
-topic = "wei/to-client/54/uart"
+topic = "to-client/54/uart"
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
 
 
@@ -38,7 +38,7 @@ def publish(client):
         #    {"pin": 2, "autoclear": 1, "pattern": [1,2,3,4,5,6],
         #     "repeat": 0})
 
-        result = client.publish('wei/to-client/54/uart', message, qos=0)
+        result = client.publish('to-client/54/uart', message, qos=0)
         status = result[0]
         if status == 0:
             print(f"Send `{message}` to topic `{topic}`")
