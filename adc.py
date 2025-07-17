@@ -31,10 +31,10 @@ def address_from_table(voltage):
 def get_address():
     voltage_1 = (adc_1.read() / 1000)  # Spannung berechnen
     voltage_2 = (adc_2.read() / 1000)  # Spannung berechnen
-    print(f"Gemessene Spannungen: 1: {voltage_1:.2f} V 2: {voltage_2:.2f} V")
+    print(f"Measured Voltage: channel1: {voltage_1:.2f} V channel2: {voltage_2:.2f} V")
     address_ones = address_from_table(voltage_1)
     address_tens = address_from_table(voltage_2)
-    print(f"Ermittelte Adressen: {address_tens}.{address_ones}")
+    print(f"Calculated address: {address_tens}.{address_ones}")
     addr = address_tens * 10 + address_ones if address_ones and address_tens else 0
     return addr
 
@@ -44,7 +44,7 @@ def get_voltage(adc_pin=3):
     adc.width(ADC.WIDTH_12BIT)  # 12-Bit-Auflösung (0–4095)
     adc.atten(ADC.ATTN_11DB)  # Spannung bis 3,3 V
     voltage = (adc.read() / 1000) # Spannung berechnen (0–3,3 V Bereich)
-    print(f"Gemessene Spannung at GPIO{adc_pin}: {voltage:.2f} V")
+    print(f"Measured Voltage at GPIO{adc_pin}: {voltage:.2f} V")
     return voltage
 
 

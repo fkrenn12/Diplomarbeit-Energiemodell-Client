@@ -1,5 +1,4 @@
 import time
-import machine
 import neopixel
 import json
 from machine import Pin, PWM, Timer
