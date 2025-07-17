@@ -19,12 +19,12 @@ PASSWORD = "wiesengrund14"
 # MQTT-Konfiguration
 MQTT_BROKER = "192.168.0.93"  # IP-Adresse oder Domain des MQTT-Brokers
 MQTT_PORT = 8883
-MQTT_TOPIC_ROOT_IN = "wei/to-client"
-MQTT_TOPIC_ROOT_OUT = "wei/from-client"
 MQTT_CLIENT_ID = f"ESP32-C6-Client_{randint(1, 1000000)}"
 MQTT_USER = "admin"  # Benutzername für MQTT-Auth
 MQTT_PASSWORD = "admin"  # Passwort für MQTT-Auth
 
+MQTT_TOPIC_ROOT_IN = "to-client"
+MQTT_TOPIC_ROOT_OUT = "from-client"
 print(f'Client Address: {CLIENT_ADDRESS}')
 print(f'MQTT Client-ID: {MQTT_CLIENT_ID}')
 
@@ -77,7 +77,7 @@ def handle_mqtt(topic, msg) -> str | None:
         if topic_count == 3 and "pwm" in topic:
             typ, pin, freq = topic.split("/")[-3:]
         elif topic_count == 3 and "gpio" in topic:
-            typ, pin, pin, direction = topic.split("/")[-3:]
+            typ, pin, direction = topic.split("/")[-3:]
         elif topic_count == 2 and ("adc" in topic or "gpio" in topic):
             typ, pin = topic.split("/")[-2:]
         elif "uart" in topic:
@@ -95,9 +95,9 @@ def handle_mqtt(topic, msg) -> str | None:
 
 def main():
     def mqtt_callback(topic, msg):
-        machine.Pin(20, machine.Pin.OUT).value(1)
+        # machine.Pin(20, machine.Pin.OUT).value(1)
         gc.collect()
-        machine.Pin(20, machine.Pin.OUT).value(0)
+        # machine.Pin(20, machine.Pin.OUT).value(0)
         try:
             topic = topic.decode()
             print(f"Received: {topic} -> {msg.decode()}")
