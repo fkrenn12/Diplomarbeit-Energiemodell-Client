@@ -20,10 +20,10 @@ PASSWORD = "wiesengrund14"
 MQTT_BROKER = "192.168.0.93"  # IP-Adresse oder Domain des MQTT-Brokers
 MQTT_PORT = 8883
 MQTT_SSL = True
-MQTT_CLIENT_ID = f"ESP32-C6-Client_{randint(1, 1000000)}"
 MQTT_USER = "admin"  # Benutzername für MQTT-Auth
 MQTT_PASSWORD = "admin"  # Passwort für MQTT-Auth
 
+MQTT_CLIENT_ID = f"ESP32-C6-Client_{randint(1, 1000000)}"
 MQTT_TOPIC_ROOT_IN = "to-client"
 MQTT_TOPIC_ROOT_OUT = "from-client"
 print(f'Client Address: {CLIENT_ADDRESS}')

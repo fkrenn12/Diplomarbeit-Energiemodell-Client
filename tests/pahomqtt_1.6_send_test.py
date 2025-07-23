@@ -2,12 +2,14 @@ import paho.mqtt.client as mqtt
 import time
 import random
 import json
+from collections import deque
 
 broker = '192.168.0.93'
 port = 8883
 topic = "to-client/54/uart"
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
-
+#pattern = [1, 0b11000011, 0b11001100, 0b11110000, 0b11010100, 0b11111111]
+pattern = [0b00111101, 0b00111011, 0b00111001,0b00111001, 0b00111001]
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -28,15 +30,17 @@ def connect_mqtt():
 
 def publish(client):
     msg_count = 0
+    d = deque(pattern)
     while True:
-        time.sleep(0.02)
-        message = json.dumps({"count": msg_count, "pin": 2, "autoclear": 1,
+        time.sleep(0.25)
+        d.rotate(1)
+        message = json.dumps({"pin": 2, "autoclear": 1,
                               "pattern": [random.randint(1, 255), random.randint(1, 100), random.randint(1, 100),
                                           random.randint(1, 255), random.randint(1, 100), random.randint(1, 100)],
                               "repeat": 0})
-        # message = json.dumps(
-        #    {"pin": 2, "autoclear": 1, "pattern": [1,2,3,4,5,6],
-        #     "repeat": 0})
+        message = json.dumps(
+            {"pin": 2, "autoclear": 1, "pattern": list(d),
+             "repeat": 0})
 
         result = client.publish('to-client/54/uart', message, qos=0)
         status = result[0]
