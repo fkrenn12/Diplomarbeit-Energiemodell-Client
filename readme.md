@@ -1,6 +1,6 @@
 ## Remote Peripheral Control with ESP32
 ### Overview
-![alt text](overwiev.png "Overview")
+![alt text](overview.png "Overview")
 An other MQTT client is used to control peripherals by publishing messages to an MQTT broker.   
 The messages are received by this client.   
 This allows for remote control and automation of devices connected to the network. 
