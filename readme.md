@@ -19,6 +19,7 @@ UART:
 to-client/<ADDRESS>/uart : <DATA>
 Response: None
 
+![alt text](Client-Waveshare-ESP32C6.png "Title")
 
 <ADDRESS> Client address which is defined with resistors R1 to R4 on the board
 <PIN> Pin number 2,3,4,5 (for adc) and 15,18,19,20,21,22 (for pwm and gpio)
