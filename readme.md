@@ -1,4 +1,4 @@
-## Remote Peripheral Control with ESP32
+## Remote Peripheral Control with ESP32 via MQTT
 ### Overview
 ![alt text](overview.png "Overview")
 ### Detailed description
