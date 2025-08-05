@@ -5,6 +5,6 @@
 ![alt text](Client-Waveshare-ESP32C6.png "Title")
 
 #### Limitations
-After using pin as gpio output it cannot be used as pwm pin  
+After using pin as gpio output it cannot be reused as pwm pin  
 
 
